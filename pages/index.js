@@ -1,13 +1,16 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Header from "../components/Header";
-import LotteryEntrance from "../components/LotteryEntrance";
+import Main from "../components/Main";
 import { useMoralis } from "react-moralis";
 
 const supportedChains = ["31337", "5"];
 
 export default function Home() {
   const { isWeb3Enabled, chainId } = useMoralis();
+
+  console.log("chainId : ", chainId)
+  console.log("isWeb3Enabled : ", isWeb3Enabled);
 
   return (
     <div className={styles.container}>
@@ -17,11 +20,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
+      <div>HI</div>
+      <div>isWeb3Enabled: {isWeb3Enabled.toString()}</div>
+      <div>ChainId : {parseInt(chainId)}</div>
+
+      {/* <Main className="p-8" /> */}
       {isWeb3Enabled ? (
         <div>
           {supportedChains.includes(parseInt(chainId).toString()) ? (
             <div className="flex flex-row">
-              <LotteryEntrance className="p-8" />
+              <Main className="p-8" /> 
             </div>
           ) : (
             <div>{`Please switch to a supported chainId. The supported Chain Ids are: ${supportedChains}`}</div>
