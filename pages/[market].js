@@ -91,7 +91,7 @@ function Market() {
 
   return (
     <div>
-      <Link href="/">
+      <Link href="/nextjs-price-betting2">
         <a className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-red">
           Back
           </a>
