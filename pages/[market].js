@@ -92,11 +92,9 @@ function Market() {
 
   return (
     <div>
-      <Link href="/nextjs-price-betting2/">
-        <a className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-red">
-          Back
-          </a>
-      </Link>
+      <button type="button" onClick={() => router.back()} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-red">
+        Back
+      </button>
       <div className={ open ? marketOpenCSS : marketClosedCSS }>
         <div className="flex-shrink-0 mr-4">
           <img className="w-8 h-8 rounded-full" src={ asset === "0" ? "/nextjs-price-betting2/ethereum.png" : asset === "1" ? "/nextjs-price-betting2/bitcoin.png" : "/nextjs-price-betting2/doge.png" } />
