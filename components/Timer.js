@@ -69,7 +69,7 @@ export default function Timer(props) {
         <div className="flex">
         { hours === 0 && minutes === 0 && seconds === 0
             ? "Entries Closed"
-            : <p> {hours}:{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</p> 
+            : <span> {hours}:{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</span> 
         }
         </div>
     )

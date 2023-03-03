@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Main from "../components/Main";
 import { useMoralis } from "react-moralis";
 
-const supportedChains = ["31337", "5"];
+const supportedChains = ["31337", "421613"];
 
 export default function Home() {
   const { isWeb3Enabled, chainId } = useMoralis();
@@ -26,7 +26,7 @@ export default function Home() {
               <Main className="p-8" /> 
             </div>
           ) : (
-            <div>{`Please switch to a supported chainId. The supported Chain Ids are: ${supportedChains}`}</div>
+            <div>{`Please switch to a supported network. We currently only support Arbitrum's testnet (Goerli) local networks through Hardhat.`}</div>
           )}
         </div>
       ) : (
