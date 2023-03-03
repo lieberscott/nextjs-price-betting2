@@ -1,5 +1,6 @@
 import { erc20Abi, instanceAbi, myTokenAddress } from "../constants"
 // dont export from moralis when using react
+import Image from 'next/image'
 import { useMoralis, useWeb3Contract } from "react-moralis"
 import { useEffect, useState } from "react"
 import { useNotification } from "web3uikit"
@@ -137,7 +138,7 @@ export default function MarketRow(props) {
       <a>
         <div className={open ? open.toString() === "0" ? marketOpenCSS : marketClosedCSS : "" }>
           <div className="flex-shrink-0 mr-4">
-            <img className="w-8 h-8 rounded-full" src={ asset && asset.toString() === "0" ? "/ethereum.png" : asset && asset.toString() === "1" ? "/bitcoin.png" : "/doge.png" } />
+            <img className="w-8 h-8 rounded-full" src={ asset && asset.toString() === "0" ? "/nextjs-price-betting2/ethereum.png" : asset && asset.toString() === "1" ? "/nextjs-price-betting2/bitcoin.png" : "/nextjs-price-betting2/doge.png" } />
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-400">

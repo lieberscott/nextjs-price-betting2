@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { ethers } from "ethers"
 import { displayDate } from "../utils";
 import { useNotification } from "web3uikit";
+import Image from 'next/image'
 
 import Timer from "../components/Timer";
 
@@ -98,7 +99,7 @@ function Market() {
       </Link>
       <div className={ open ? marketOpenCSS : marketClosedCSS }>
         <div className="flex-shrink-0 mr-4">
-          <img className="w-8 h-8 rounded-full" src={ asset === "0" ? "/ethereum.png" : asset === "1" ? "/bitcoin.png" : "/doge.png" } />
+          <img className="w-8 h-8 rounded-full" src={ asset === "0" ? "/nextjs-price-betting2/ethereum.png" : asset === "1" ? "/nextjs-price-betting2/bitcoin.png" : "/nextjs-price-betting2/doge.png" } />
         </div>
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">What will { asset === "0" ? "ETH's" : asset === "1" ? "BTC's" : "DOGE's" } price be by { displayDate(expirationTime)}?</h5>
         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Entry Fee: {entryFeeNum} ETH (entry fees are ALWAYS paid in ETH, regardless of market)</p>
