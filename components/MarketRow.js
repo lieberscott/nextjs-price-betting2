@@ -114,47 +114,26 @@ export default function MarketRow(props) {
     getMarketData();
   }, []);
 
-
-  const handleNewNotification = () => {
-    dispatch({
-        type: "info",
-        message: "Transaction Complete!",
-        title: "Transaction Notification",
-        position: "topR",
-        icon: "bell",
-    })
-  }
-
-  const handleSuccess = async (tx, updateType) => {
-    try {
-        await tx.wait(1)
-        handleNewNotification(tx)
-    } catch (error) {
-        console.log(error)
-    }
-  }
-
   const marketOpenCSS = "bg-lime-100 flex items-center pl-4 pr-8 py-4 my-2"
   const marketPredictionsClosedCSS = "bg-orange-100 flex items-center pl-4 pr-8 py-4 my-2"
   const marketClosedCSS = "bg-red-100 flex items-center px-8 py-4 my-2"
 
 
   return (
-    // <Link href={`/market/[${props.index}]`}>
-      <Link href={{
-        pathname: `/${props.index}`,
-        query: {
-          asset: asset ? asset.toString() : "",
-          ethBalance: ethBalance ? ethBalance.toString() : "",
-          expirationTime: expirationTime ? expirationTime.toString() : "",
-          entryFee: entryFee ? entryFee.toString() : "",
-          deployTime: deployTime ? deployTime.toString() : "",
-          cutoffTime: cutoffTime ? cutoffTime.toString() : "",
-          open: open ? open.toString(): "",
-          numPlayers: numPlayers ? numPlayers.toString(): "",
-          marketAddress
-        }
-      }}>
+    <Link href={{
+      pathname: `/${props.index}`,
+      query: {
+        asset: asset ? asset.toString() : "",
+        ethBalance: ethBalance ? ethBalance.toString() : "",
+        expirationTime: expirationTime ? expirationTime.toString() : "",
+        entryFee: entryFee ? entryFee.toString() : "",
+        deployTime: deployTime ? deployTime.toString() : "",
+        cutoffTime: cutoffTime ? cutoffTime.toString() : "",
+        open: open ? open.toString(): "",
+        numPlayers: numPlayers ? numPlayers.toString(): "",
+        marketAddress
+      }
+    }}>
       <a>
         <div className={open ? open.toString() === "0" ? marketOpenCSS : marketClosedCSS : "" }>
           <div className="flex-shrink-0 mr-4">

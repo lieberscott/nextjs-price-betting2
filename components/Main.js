@@ -2,8 +2,6 @@ import { contractAddresses, factoryAbi } from "../constants"
 // dont export from moralis when using react
 import { useMoralis, useWeb3Contract } from "react-moralis"
 import { useEffect, useState } from "react"
-import { useNotification } from "web3uikit"
-import { ethers } from "ethers"
 import MarketRow from "./MarketRow"
 
 
@@ -14,28 +12,14 @@ export default function Main() {
     
     // These get re-rendered every time due to our connect button!
     const chainId = parseInt(chainIdHex) === 1337 ? 31337 : parseInt(chainIdHex)
-    // const chainId = parseInt(chainIdHex)
-    // const chainId = "31337"
-    console.log("chainId : ", chainIdHex)
-    console.log("account : ", account)
-    // console.log(`ChainId is ${chainId}`)
     const bettingFactoryAddress = chainId in contractAddresses ? contractAddresses[chainId][0] : null
 
-    const zeroXAddress = "0x0000000000000000000000000000000000000000"
-
-    // State hooks
-    // https://stackoverflow.com/questions/58252454/react-hooks-using-usestate-vs-just-variables
     const [marketAddresses, setMarketAddresses] = useState([]);
-    const [primaryTab, setPrimaryTab] = useState(0);
     const [offset, setOffset] = useState(0);
-    const [numMarketsState, setNumMarketsState] = useState(0)
 
-
-    const dispatch = useNotification()
 
     useEffect(() => {
       if (isWeb3Enabled) {
-        console.log("bettingFactoryAddress : ", bettingFactoryAddress);
         readNumMarkets();
         updateUIValues();
       }
@@ -79,30 +63,7 @@ export default function Main() {
 
       setOffset(prev => prev + marketsToSearch);
       setMarketAddresses(prev => prev.concat(tempArr));
-
   }
-
-
-
-    const handleNewNotification = () => {
-        dispatch({
-            type: "info",
-            message: "Transaction Complete!",
-            title: "Transaction Notification",
-            position: "topR",
-            icon: "bell",
-        })
-    }
-
-    const handleSuccess = async (tx) => {
-        try {
-            await tx.wait(1)
-            updateUIValues()
-            handleNewNotification(tx)
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
 
 

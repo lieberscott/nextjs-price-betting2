@@ -1,11 +1,4 @@
-import { erc20Abi, instanceAbi, myTokenAddress } from "../constants"
-// dont export from moralis when using react
-import { useMoralis, useWeb3Contract } from "react-moralis"
 import { useEffect, useState } from "react"
-import { useNotification } from "web3uikit"
-import { ethers } from "ethers"
-import Link from "next/link";
-import { displayDate } from "../utils"
 
 
 export default function Timer(props) {
