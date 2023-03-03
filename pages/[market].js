@@ -107,7 +107,7 @@ function Market() {
         <p className="flex mb-3 font-normal text-gray-700 dark:text-gray-400">Predictions Must be in by: { displayDate(cutoffTime) } <span className="ml-6"><Timer cutoffTime={cutoffTime} /></span></p>
         <div className="mb-8">
           <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your price prediction (US Dollars)</label>
-          <p className="flex items-center font-normal text-gray-700 dark:text-gray-400 bg-white px-5 rounded-lg">$<input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-500 dark:placeholder-gray-400 bg-white dark:text-gray ml-2" onChange={(e) => setEstimate(e.target.value)} value={estimate} placeholder="2000" required /></p>
+          <p className="flex items-center font-normal text-gray-700 dark:text-gray-400 bg-white px-5 rounded-lg">$<input name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-500 dark:placeholder-gray-400 bg-white dark:text-gray ml-2" onChange={(e) => setEstimate(e.target.value)} value={estimate} placeholder="2000" required /></p>
         </div>
         <button onClick={checkNum} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           Make Prediction
