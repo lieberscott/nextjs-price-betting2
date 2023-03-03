@@ -4,11 +4,9 @@ import { useMoralis, useWeb3Contract } from "react-moralis"
 import { useEffect, useState } from "react"
 import { useNotification } from "web3uikit"
 import { ethers } from "ethers"
-import Link from "next/link";
-import { displayDate } from "../utils"
 
 
-export default function MarketRow(props) {
+export default function IndividualMarket(props) {
 
   const { account, chainId: chainIdHex } = useMoralis();
 
@@ -133,64 +131,44 @@ export default function MarketRow(props) {
   }
 
 
-  // const displayDate = (seconds) => {
-  //   const sec = parseInt(seconds) * 1000;
-  //   const d = new Date(sec);
-  //   const month = d.getMonth();
-  //   const date = d.getDate();
-  //   const year = d.getFullYear();
-  //   const hour0 = parseInt(d.getHours());
-  //   const hour = hour0 % 12 === 0 ? 12 : hour0 % 12;
-  //   const amPm = hour0 >= 12 ? "p.m." : "a.m.";
-  //   const minute = parseInt(d.getMinutes()).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
-  //   return `${month}/${date}/${year}, ${hour}:${minute} ${amPm}`;
-  // }
+  const displayDate = (seconds) => {
+    const sec = parseInt(seconds) * 1000;
+    const d = new Date(sec);
+    const month = d.getMonth();
+    const date = d.getDate();
+    const year = d.getFullYear();
+    const hour0 = parseInt(d.getHours());
+    const hour = hour0 % 12 === 0 ? 12 : hour0 % 12;
+    const amPm = hour0 >= 12 ? "p.m." : "a.m.";
+    const minute = parseInt(d.getMinutes()).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
+    return `${month}/${date}/${year}, ${hour}:${minute} ${amPm}`;
+  }
 
   const marketOpenCSS = "bg-lime-100 flex items-center pl-4 pr-8 py-4 my-2"
   const marketClosedCSS = "bg-red-100 flex items-center px-8 py-4 my-2"
 
 
   return (
-    // <Link href={`/market/[${props.index}]`}>
-      <Link href={{
-        pathname: `/${props.index}`,
-        query: {
-          asset: asset ? asset.toString() : "",
-          ethBalance: ethBalance ? ethBalance.toString() : "",
-          expirationTime: expirationTime ? expirationTime.toString() : "",
-          entryFee: entryFee ? entryFee.toString() : "",
-          deployTime: deployTime ? deployTime.toString() : "",
-          cutoffTime: cutoffTime ? cutoffTime.toString() : "",
-          open: open ? open.toString(): "",
-          numPlayers: numPlayers ? numPlayers.toString(): "",
-          marketAddress
-        }
-      }}>
-      <a>
-        <div className={open ? open.toString() === "0" ? marketOpenCSS : marketClosedCSS : "" }>
-          <div className="flex-shrink-0 mr-4">
-            <img className="w-8 h-8 rounded-full" src={ asset && asset.toString() === "0" ? "/ethereum.png" : asset && asset.toString() === "1" ? "/bitcoin.png" : "/doge.png" } />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-400">
-              Asset: { asset ? asset.toString() === "0" ? "ETH" : asset.toString() === "1" ? "BTC" : "DOGE" : "No asset" }
-            </p>
-            <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-400">
-              Entry Fee: { entryFee ? ethers.utils.formatUnits(entryFee.toString()) + " ETH" : "None found" }
-            </p>
-            <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-              Predictions Cut Off: { cutoffTime ? displayDate(cutoffTime.toString()) : "No cutoff Time" }
-            </p>
-            <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-400">
-              What will the price be on: { expirationTime ? displayDate(expirationTime.toString()) : "No expiration time" }
-            </p>
-          </div>
-          <div className="text-base font-semibold text-gray-900 dark:text-gray-400">
-              <div>Entrants: { numPlayers ? numPlayers.toString() : "No num players" }</div>
-              <div>Prize pool: {ethBalance ? ethers.utils.formatUnits(ethBalance.toString()) : "0"} ETH</div>
-          </div>
-        </div>
-      </a>
-    </Link>
+    <div className={open.toString() === "0" ? marketOpenCSS : marketClosedCSS }>
+      <div className="flex-shrink-0 mr-4">
+          <img className="w-8 h-8 rounded-full" src={ asset && asset.toString() === "0" ? "/ethereum.png" : asset && asset.toString() === "1" ? "/bitcoin.png" : "/doge.png" } />
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-400">
+            Asset: { asset ? asset.toString() === "0" ? "ETH" : asset.toString() === "1" ? "BTC" : "DOGE" : "No asset" }
+          </p>
+          <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+            Predictions Cut Off: { cutoffTime ? displayDate(cutoffTime.toString()) : "No cutoff Time" }
+          </p>
+          <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-400">
+            Asset Price Date: { expirationTime ? displayDate(expirationTime.toString()) : "No expiration time" }
+          </p>
+      </div>
+      <div className="text-base font-semibold text-gray-900 dark:text-gray-400">
+          <div>Entrants: { numPlayers ? numPlayers.toString() : "No num players" }</div>
+          <div>Prize pool: {ethBalance ? ethers.utils.formatUnits(ethBalance.toString()) : "0"} ETH</div>
+      </div>
+    </div>
+        
   )
 }

@@ -9,9 +9,6 @@ const supportedChains = ["31337", "5"];
 export default function Home() {
   const { isWeb3Enabled, chainId } = useMoralis();
 
-  console.log("chainId : ", chainId)
-  console.log("isWeb3Enabled : ", isWeb3Enabled);
-
   return (
     <div className={styles.container}>
       <Head>
@@ -20,9 +17,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <div>HI</div>
-      <div>isWeb3Enabled: {isWeb3Enabled.toString()}</div>
-      <div>ChainId : {parseInt(chainId)}</div>
 
       {/* <Main className="p-8" /> */}
       {isWeb3Enabled ? (

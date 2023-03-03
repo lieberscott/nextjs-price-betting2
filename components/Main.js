@@ -28,6 +28,7 @@ export default function Main() {
     const [marketAddresses, setMarketAddresses] = useState([]);
     const [primaryTab, setPrimaryTab] = useState(0);
     const [offset, setOffset] = useState(0);
+    const [numMarketsState, setNumMarketsState] = useState(0)
 
 
     const dispatch = useNotification()
@@ -35,50 +36,11 @@ export default function Main() {
     useEffect(() => {
       if (isWeb3Enabled) {
         console.log("bettingFactoryAddress : ", bettingFactoryAddress);
+        readNumMarkets();
         updateUIValues();
       }
     }, [isWeb3Enabled, account]);
-
-    // 1. Get numMarkets
-    // 2. Get most recent 5 market addresses
-    // 3. Get data for each market (asset, expTime, entryFee, etc.)
-    // 4. onScroll, get next 5 markets
-
-    // const {
-    //     runContractFunction: enterRaffle,
-    //     data: enterTxResponse,
-    //     isLoading,
-    //     isFetching,
-    // } = useWeb3Contract({
-    //     abi: abi,
-    //     contractAddress: bettingFactoryAddress,
-    //     functionName: "getContractFromMainAddress",
-    //     msgValue: entranceFee,
-    //     params: {},
-    // })
-
-    const updateUIValues = async() => {
-      console.log("updateUIValues");
-      const numMarketsFromCall = (await getNumMarkets()).toString()
-      console.log("numMarketsFroMCall : ", numMarketsFromCall);
-
-      // get markets
-      console.log("get markets");
-      const tempArr = [];
-      for (let i = 0 ; i < 2; i++) {
-        const readOptions = {
-          contractAddress: bettingFactoryAddress,
-          functionName: "getMarket",
-          abi: factoryAbi,
-          params: { _index: i }
-        }
-        const address = (await Moralis.executeFunction(readOptions)).toString();
-        tempArr.push(address);
-      }
-
-      setMarketAddresses(prev => prev.concat(tempArr));
-
-  }
+    
 
     /* View Functions */
 
@@ -89,12 +51,36 @@ export default function Main() {
       params: { },
     });
 
-    // const { runContractFunction: getAddress, data: address } = useWeb3Contract({
-    //   abi: factoryAbi,
-    //   contractAddress: bettingFactoryAddress,
-    //   functionName: "getMarket",
-    //   params: { },
-    // });
+    const readNumMarkets = async () => {
+      const numMarketsFromCall = (await getNumMarkets()).toString();
+    }
+
+    const updateUIValues = async() => {
+      console.log("updateUIValues");
+
+      const numMarketsInt = parseInt(numMarkets);
+
+      let marketsToSearch = offset + 5 > numMarketsInt ? numMarketsInt - offset : 5;
+      console.log("marketsToSearch : ", marketsToSearch)
+
+      // get markets
+      console.log("get markets");
+      const tempArr = [];
+      for (let i = offset ; i < marketsToSearch + offset; i++) {
+        const readOptions = {
+          contractAddress: bettingFactoryAddress,
+          functionName: "getMarket",
+          abi: factoryAbi,
+          params: { _index: i }
+        }
+        const address = (await Moralis.executeFunction(readOptions)).toString();
+        tempArr.push(address);
+      }
+
+      setOffset(prev => prev + marketsToSearch);
+      setMarketAddresses(prev => prev.concat(tempArr));
+
+  }
 
 
 
@@ -122,13 +108,13 @@ export default function Main() {
 
     return (
       <div className="p-5">
-        <div>bettingFactoryAddress: {bettingFactoryAddress}</div>
-        <div>numMarkets: {numMarkets ? numMarkets.toString() : "" }</div>
-        <button onClick={ updateUIValues }>Get Num Markets</button>
-        <img src="../assets/doge.png" alt="No img"/>
         {marketAddresses.map((address, i) => {
-          return <MarketRow marketAddress={ address } />
+          return <MarketRow key={address} marketAddress={ address } index={ i } />
         })}
+
+        <button onClick={ updateUIValues } className="bg-transparent hover:bg-orange-500 text-orange-800 font-semibold hover:text-white py-2 px-4 border border-orange-500 hover:border-transparent rounded">
+          Load More
+        </button>
 
       </div>
     )
