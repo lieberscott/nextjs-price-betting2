@@ -10,14 +10,13 @@ import { displayDate } from "../utils"
 
 export default function Timer(props) {
 
-  const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    const now = new Date();
-    const cutoffTime = parseInt(props.cutoffTime);
+    const now = Date.now();
+    const cutoffTime = parseInt(props.cutoffTime) * 1000;
 
     const timeArr = cutoffTime - now < 0 ? [0, 0, 0] : msToTime(cutoffTime - now);
     
@@ -70,7 +69,7 @@ export default function Timer(props) {
         <div className="flex">
         { hours === 0 && minutes === 0 && seconds === 0
             ? "Entries Closed"
-            : <h1> {hours}:{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</h1> 
+            : <p> {hours}:{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</p> 
         }
         </div>
     )

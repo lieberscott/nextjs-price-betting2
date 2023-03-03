@@ -7,6 +7,8 @@ import { ethers } from "ethers"
 import Link from "next/link";
 import { displayDate } from "../utils"
 
+import Timer from "./Timer"
+
 
 export default function MarketRow(props) {
 
@@ -132,21 +134,8 @@ export default function MarketRow(props) {
     }
   }
 
-
-  // const displayDate = (seconds) => {
-  //   const sec = parseInt(seconds) * 1000;
-  //   const d = new Date(sec);
-  //   const month = d.getMonth();
-  //   const date = d.getDate();
-  //   const year = d.getFullYear();
-  //   const hour0 = parseInt(d.getHours());
-  //   const hour = hour0 % 12 === 0 ? 12 : hour0 % 12;
-  //   const amPm = hour0 >= 12 ? "p.m." : "a.m.";
-  //   const minute = parseInt(d.getMinutes()).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
-  //   return `${month}/${date}/${year}, ${hour}:${minute} ${amPm}`;
-  // }
-
   const marketOpenCSS = "bg-lime-100 flex items-center pl-4 pr-8 py-4 my-2"
+  const marketPredictionsClosedCSS = "bg-orange-100 flex items-center pl-4 pr-8 py-4 my-2"
   const marketClosedCSS = "bg-red-100 flex items-center px-8 py-4 my-2"
 
 
@@ -178,8 +167,8 @@ export default function MarketRow(props) {
             <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-400">
               Entry Fee: { entryFee ? ethers.utils.formatUnits(entryFee.toString()) + " ETH" : "None found" }
             </p>
-            <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-              Predictions Cut Off: { cutoffTime ? displayDate(cutoffTime.toString()) : "No cutoff Time" }
+            <p className="flex text-sm text-gray-500 truncate dark:text-gray-400">
+              <span className="mr-5">Predictions Cut Off:</span> { cutoffTime ? <Timer cutoffTime={ cutoffTime.toString() } /> : "No cutoff Time" }
             </p>
             <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-400">
               What will the price be on: { expirationTime ? displayDate(expirationTime.toString()) : "No expiration time" }

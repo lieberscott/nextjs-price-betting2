@@ -102,15 +102,18 @@ function Market() {
     msgValue: entryFee
   });
 
+  const marketOpenCSS = "max-w-xl p-6 bg-lime-100 border border-gray-200 rounded-lg shadow dark:bg-lime-800 dark:border-lime-700"
+  const marketClosedCSS = "max-w-xl p-6 bg-red-100 border border-gray-200 rounded-lg shadow dark:bg-red-800 dark:border-red-700"
+
   return (
     <div>
       <Link href="/">
-        <a className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <a className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-red">
           Back
             {/* <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg> */}
           </a>
       </Link>
-      <div className="max-w-xl p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div className={ open ? marketOpenCSS : marketClosedCSS }>
         <div className="flex-shrink-0 mr-4">
           <img className="w-8 h-8 rounded-full" src={ asset === "0" ? "/ethereum.png" : asset === "1" ? "/bitcoin.png" : "/doge.png" } />
         </div>
@@ -121,7 +124,7 @@ function Market() {
         <p className="flex mb-3 font-normal text-gray-700 dark:text-gray-400">Predictions Must be in by: { displayDate(cutoffTime) } <span className="ml-6"><Timer cutoffTime={cutoffTime} /></span></p>
         <div className="mb-8">
           <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your price prediction (US Dollars)</label>
-          <p className="flex items-center font-normal text-gray-700 dark:text-gray-400">$<input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ml-2" onChange={(e) => setEstimate(e.target.value)} value={estimate} placeholder="2000" required /></p>
+          <p className="flex items-center font-normal text-gray-700 dark:text-gray-400 bg-white px-5 rounded-lg">$<input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-500 dark:placeholder-gray-400 bg-white dark:text-white ml-2" onChange={(e) => setEstimate(e.target.value)} value={estimate} placeholder="2000" required /></p>
         </div>
         <button onClick={checkNum} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         Make Prediction
