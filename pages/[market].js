@@ -18,8 +18,8 @@ function Market() {
 
   const { market, marketAddress, asset, ethBalance, expirationTime, cutoffTime, deployTime, entryFee, open, numPlayers } = router.query;
 
-  const entryFeeNum = parseFloat(ethers.utils.formatUnits(entryFee)); // 0.1
-  const ethBalanceNum = parseFloat(ethers.utils.formatUnits(ethBalance)); // 0.1
+  const entryFeeNum = entryFee ? parseFloat(ethers.utils.formatUnits(entryFee)) : "0"; // 0.1
+  const ethBalanceNum = ethBalance ? parseFloat(ethers.utils.formatUnits(ethBalance)) : "0"; // 0.1
 
   console.log("entryFeeNum : ", entryFeeNum);
   
